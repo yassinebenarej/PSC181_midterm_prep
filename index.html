@@ -236,6 +236,17 @@ h1{
   width:8px;height:8px;background:var(--wrong);border-radius:50%;
 }
 .option.locked{cursor:default}
+.option.multi .radio{border-radius:4px}
+.option.multi.selected .radio::after,
+.option.multi.show-correct .radio::after,
+.option.multi.show-wrong .radio::after{border-radius:1px}
+.multi-hint{
+  font-size:.72rem;
+  color:var(--text-dim);
+  font-family:'Space Mono',monospace;
+  margin-bottom:8px;
+  letter-spacing:.5px;
+}
 
 .fill-row{
   display:flex;
@@ -742,6 +753,260 @@ const QUIZZES = [
       { num:20, text:"What happens when a main sequence star first runs out of hydrogen in its core?",
         options:["The star sheds its outer layers forming a planetary nebula","The core shrinks while the rest of the star expands","The entire star shrinks to a size comparable to Earth's size","The core immediately begins to fuse helium into carbon","The star collapses and explodes as a supernova"], answer:1 }
     ]
+  },
+
+  // ---------- QUIZ 7 ----------
+  {
+    id: 7,
+    title: "Quiz #7",
+    name: "Supernovae & Stellar Death",
+    questions: [
+      { section:"Part A — Multiple Choice", num:1,
+        text:"The basic evolutionary sequence of a star that is about 20 times the mass of the Sun is:",
+        options:["protostar, planetary nebula, red supergiant, main sequence, white dwarf","protostar, main sequence, red supergiant, planetary nebula, white dwarf","red giant, protostar, white dwarf, planetary nebula, main sequence","main sequence, red supergiant, planetary nebula, supernova, protostar","protostar, main sequence, red supergiant, supernova, neutron star"], answer:4 },
+      { num:2, text:"The difference between a Type I Supernova and a Type II Supernova is that a Type I supernova _______ and occurs with _______ stars, whereas a Type II Supernova solely occurs with ________ stars.",
+        options:["requires a companion star; high-mass; high-mass","requires a companion star; low-mass; high-mass","does not require a companion star; low-mass; high-mass","requires a companion star; low-mass; low-mass","does not require a companion star; high-mass; high-mass"], answer:1 },
+      { num:3, text:"Which of the following statements is NOT true for a Type II Supernova explosion?",
+        options:["It occurs at the end of the life of a massive star.","It outputs new elements, so it was events like these that lead to the material to form planets like Earth, and so to us.","Matter is ejected so violently that it marks one of the largest explosions in the universe.","The star is in balance between gravity and thermal pressure.","The star may shine as brightly as billions of stars."], answer:3 },
+      { num:4, text:"A _______ supernova can have, as a remnant, a _______ which has a mass of _______ M☉ (> = greater than; < = less than)",
+        options:["Type II; Neutron Star; > 3","Type II; Black Hole singularity; < 1.4","Type I; Black Hole singularity; < 1.4","Type II; Black Hole singularity; > 3","Type I; White Dwarf; < 3"], answer:3 },
+      { num:5, text:"The H-R diagram below shows the life track of a 1-solar-mass star, with various stages labeled with Roman numerals. Which of the following stages lasts the longest?\n(Note: The diagonal line in the graph is the main sequence)",
+        image:"quiz_images/Quiz_7/Q05_HR_lifetrack.png",
+        options:["i","ii","iii","iv","v","vi","vii","viii"], answer:2 },
+
+      { section:"Part B — Matching (Stellar Evolution Stages)", num:6,
+        text:"Match each description with its stage.\nChoices: 1.Nebula  2.Main Sequence Star  3.Red Giant  4.White Dwarf  5.Planetary Nebula  6.Red Supergiant  7.Supernova Type I  8.Supernova Type II  9.Neutron Star  10.Black Hole\n(Enter the number for each)",
+        type:"fill",
+        labels:["Star fuses hydrogen to helium in its core","Outer layers of a low-mass star expand outward, increasing the size of the star","Region where so much mass is concentrated that nothing can escape","Big cloud of dust and gas; birthplace of stars","Very dense, hot star that is mostly made of carbon","Outer layers shed away from a low-mass star at the end of its life","Largest known type of star; accumulates a dense core of iron atoms","Giant explosion when a white dwarf \"steals\" material from a companion star","Giant explosion when a massive star exhausts its supply of fuel","End stage of a Type II supernova; mass between 1.4 and 3 solar masses"],
+        answers:["2","3","10","1","4","5","6","7","8","9"] },
+
+      { section:"Part C — Thinking/Inquiry (Stellar Lifetimes)", num:7,
+        text:"The chart shows the main-sequence lifetimes of stars of different masses. Which live longer?",
+        image:"quiz_images/Quiz_7/Q07_lifetime_table.png",
+        options:["High-mass stars","Low-mass stars"], answer:1 },
+      { num:8, text:"Is the rate of nuclear fusion in a high-mass star greater than, less than or equal to the rate of nuclear fusion in a low-mass star?",
+        options:["Less than","Greater than","Equal to"], answer:1 },
+      { num:9, text:"How does the lifetime of our Sun (low-mass star) compare with the lifetime of a star 5 times as massive?",
+        options:["The Sun will live more than 5 times longer than a star that is 5 times as massive.","The Sun will live just as long as a star that is 5 times as massive.","The Sun will live 2 times longer than a star that is 5 times as massive.","The Sun will live half as long as a star that is 5 times as massive.","The Sun will live 5 times longer than a star that is 5 times as massive."], answer:0 },
+
+      { section:"Part D — Case Study (Four Stars)", num:10,
+        text:"Four stars all became Main Sequence stars at the same time, 10 billion years ago, in different locations:\n• Oliver — O class, lifetime 3 million yr, ends as Type II SN → black hole; 12 billion ly away\n• Katie — K class, lifetime 30 billion yr, ends as cooling white dwarf; 12,000 ly away (Milky Way)\n• Ferdinand — F class (binary), lifetime 5 billion yr, ends as Type I SN; 6 billion ly away\n• Becky — B class, lifetime 20 million yr, ends as Type II SN → neutron star; 30,000 ly away (Milky Way)\n\nRank the stars based on when they reach(ed) their final end state of life. [1=First...4=Last]",
+        type:"fill", labels:["Oliver Star","Becky Star","Ferdinand Star","Katie Star"], answers:["1","2","3","4"] },
+      { num:11, text:"Rank the stars based on when an observer on Earth would SEE their final end states. [1=First...4=Last]",
+        type:"fill", labels:["Oliver Star","Becky Star","Ferdinand Star","Katie Star"], answers:["3","1","2","4"] },
+      { num:12, text:"Rank the stars based on how long they would have taken to collapse from an initial cloud to forming a star on the main sequence, from shortest to longest. [1=shortest...4=longest]",
+        type:"fill", labels:["Oliver Star","Becky Star","Ferdinand Star","Katie Star"], answers:["1","2","3","4"] },
+      { num:13, text:"Is the star with the longest total lifetime also the farthest away from Earth?",
+        options:["Yes","No"], answer:1 }
+    ]
+  },
+
+  // ---------- QUIZ 8 ----------
+  {
+    id: 8,
+    title: "Quiz #8",
+    name: "Black Holes & Neutron Stars",
+    questions: [
+      { section:"Part A — Multiple Choice", num:1,
+        text:"The Schwarzschild radius is the distance from the singularity of a black hole to the event horizon. What is the event horizon?",
+        options:["The center of a black hole.","The stream of X-rays emitted by a black hole.","The outer edge of a black hole where the escape velocity is the speed of light.","The region of space inside a black hole.","The region of space just outside the black hole."], answer:2 },
+      { num:2, text:'Why are black holes called "black holes"?',
+        options:["They are empty regions of space where no matter exists.","Nothing, not even electromagnetic radiation, can escape from inside them.","Only non-visible radiation (X-rays) can escape from them.","They are always surrounded by an accretion disk which absorbs all light escaping from the inside of the black hole.","They emit an electromagnetic spectrum which matches that of a perfect blackbody."], answer:1 },
+      { num:3, text:"Which of the following is biggest in size (diameter)?",
+        options:["A blue main sequence star","A pulsar","A red main sequence star","A stellar black hole singularity","A white dwarf"], answer:0 },
+      { num:4, text:"The event that marks the end of a star's evolutionary life before becoming a white dwarf is",
+        options:["the depletion of hydrogen in the core","a Type I supernova","a nova","a planetary nebula","a helium flash"], answer:3 },
+      { num:5, text:"What prevents a white dwarf from completely collapsing upon itself?",
+        options:["nuclear fusion in the core","tightly packed protons","tightly packed neutrons","tightly packed electrons","gravity"], answer:3 },
+      { num:6, text:"A neutron star is about the same size as",
+        options:["a White Dwarf","a school bus","the Earth","the moon","a big city"], answer:4 },
+      { num:7, text:"What would happen to a person standing on the surface of a Neutron star?",
+        options:["Nothing; they could walk around as they do on Earth.","They would float away.","They would be crushed to the surface because of its immense gravity."], answer:2 },
+      { num:8, text:"The best place to search for black holes is in a region of space that",
+        options:["is crowded with stars.","is dark and empty.","is cooler than its surroundings.","has recently lost some stars.","has strong X-Ray emission."], answer:4 },
+      { num:9, text:"Pulsars usually have ALL of the following except",
+        options:["high temperature fusion reactions.","an intense magnetic field.","a narrow regular pulse of radiation.","a strong gravitational field near their surface.","extremely rapid rotation."], answer:0 },
+      { num:10, text:"What explanation does Einstein's general relativity provide for gravity, that is distinct from Newton's explanation for gravity?",
+        options:["Gravity is the weakest of all forces.","Gravity is a result of curved spacetime.","Gravity is directly related to radius of an object.","Gravity is directly related to mass of an object."], answer:1 },
+      { num:11, text:"As someone falling into a black hole reaches the event horizon, an outside observer will see the falling person's time slow down and even stop.",
+        options:["True","False"], answer:0 },
+      { num:12, text:"Neutron stars and black holes are formed by:",
+        options:["Type II Supernovae","novae","binary systems","electron degeneracy pressure","Type I Supernovae"], answer:0 },
+      { num:13, text:"You accidentally drop a probe (with running lights and a visible clock) near a black hole and watch it fall in. Which of the following statements is NOT TRUE about what you would see?",
+        options:["Once inside the event horizon, you would see the probe stretched into a long strand of atoms – it would appear Spaghettified.","The probe would start to get stretched by tidal forces.","The probe's clock would appear to slow down.","The probe would start to heat up, eventually emitting X-ray radiation.","The lights on the probe would appear to change color, becoming redder."], answer:0 },
+      { num:14, text:"The central object in a _______ is approximately the size of _______ and shines by _______.",
+        options:["planetary nebula; the Earth; remnant heat","black hole; a city; remnant heat","neutron star; the Sun; nuclear fusion","black hole; the Sun; nuclear fusion","planetary nebula; a city; remnant heat"], answer:0 },
+      { num:15, text:"How do we know what happens at the event horizon of a black hole?",
+        options:["Astronomers have detected X-rays from just inside the black holes' event horizons.","We don't know for sure: we only know what to expect based on the predictions of general relativity.","Astronomers have analyzed the light from matter within the event horizon of many black holes.","Physicists have created miniature black holes in the lab.","Astronomers have sent spacecraft through the event horizon of a nearby black hole."], answer:1 },
+
+      { section:"Part B — Ordering (Size)", num:16,
+        text:"Indicate the correct ranking for the size (diameter) of these objects, from largest to smallest. [1=Largest...10=Smallest]",
+        type:"fill",
+        labels:["The Sun","The Moon","Jupiter","Neutron Star","Milky Way galaxy","Red Giant","Black Hole Singularity","White Dwarf","The Solar System","An astronaut adrift in space"],
+        answers:["4","7","5","8","1","3","10","6","2","9"] }
+    ]
+  },
+
+  // ---------- QUIZ 9 ----------
+  {
+    id: 9,
+    title: "Quiz #9",
+    name: "Solar System, Earth & Moon Phases",
+    questions: [
+      { section:"Part A — Multiple Choice", num:1,
+        text:"The Solar System is made of over a hundred unique elements. What is the origin of the majority of those elements?",
+        options:["They have always existed.","They were all manufactured during the Big Bang and the elemental composition of the universe remains mostly unchanged since then.","Aside from a few of the smallest elements, most of the elements came from previous generations of stars, which ejected their gases as they died.","They were made in the Sun and ejected out into the rest of the Solar System."], answer:2 },
+      { num:2, text:"Which of the four terrestrial planets is the hottest?",
+        options:["Mars","Mercury","Venus","Earth"], answer:2 },
+      { num:3, text:"Based on what you have learned about the formation of our solar system, which of the following statements is probably NOT true?",
+        options:["Planets orbiting extra-solar stars will likely have moons.","Only a tiny percentage of stars are surrounded by spinning disks of gas during their formation.","Other solar systems will also have planets in the two basic categories of terrestrial and gas giants."], answer:1 },
+      { num:4, text:"The greenhouse effect is when infrared light (heat) is trapped in Earth's atmosphere by greenhouse gases. What emitted that infrared light?",
+        options:["Human factories","Volcanoes","The Sun","The ground"], answer:3 },
+      { num:5, text:"If a massive asteroid were to hit the Earth, it will still not be safe on the opposite side of Earth from where the asteroid strikes. Why?",
+        options:["The impact will cause earthquakes all over the world, shaking everything to death.","Dust and debris from the impact will make it to the opposite side of Earth, devastating and blanketing everything there too.","The impact will cause the Earth to shift out of its orbit around the Sun, causing everything to freeze over.","The shockwave from the impact will shred everything on Earth into pieces (even on the opposite side)."], answer:1 },
+      { num:6, text:"Which of the following best describes why the Moon goes through phases?",
+        options:["Earth's clouds cover portions of the Moon at various times resulting in the changing phases that we see.","We see only part of the lit-up half of the Moon depending on its position relative to Earth and the Sun.","Earth's shadow falls on different parts of the Moon at different times.","The Moon is somewhat flattened and disk-like, and appears more or less round depending on the precise angle from which we see it.","The sunlight reflected from Earth lights up the Moon but is less effective when the Moon is lower in the sky."], answer:1 },
+      { num:7, text:"Which Moon position (A–E), shown in the diagram (looking down on the north pole of Earth), best corresponds with the moon phase shown on the left? (Not to scale.)",
+        image:"quiz_images/Quiz_9/Q07_moon_position_diagram.png",
+        options:["A","B","C","D","E"], answer:0 },
+
+      { section:"Part B — Observing the Moon", num:8,
+        text:"Use the orbit diagram below. Match each moon phase photo with the correct position of the Moon (A–E).\n(Enter a letter A–E for each phase.)",
+        image:"quiz_images/Quiz_9/Q08_moon_orbit_diagram.png",
+        images:[
+          {src:"quiz_images/Quiz_9/Q08_phase1.png", label:"Phase 1"},
+          {src:"quiz_images/Quiz_9/Q08_phase2.png", label:"Phase 2"},
+          {src:"quiz_images/Quiz_9/Q08_phase3.png", label:"Phase 3"},
+          {src:"quiz_images/Quiz_9/Q08_phase4.png", label:"Phase 4"},
+          {src:"quiz_images/Quiz_9/Q08_phase5.png", label:"Phase 5"}
+        ],
+        type:"fill", labels:["Phase 1","Phase 2","Phase 3","Phase 4","Phase 5"],
+        answers:["E","A","D","C","B"] },
+      { num:9, text:"The figure shows a top view of the Sun, Earth and six positions (A–F) of the Moon during one orbit. Rank (greatest to least) the amount of the Moon's illuminated surface that is visible from Earth at each position. If any are equal, give them the same number (then you only reach 5). [1=Greatest...6=Least]",
+        image:"quiz_images/Quiz_9/Q09_moon_sixpositions.png",
+        type:"fill", labels:["A","B","C","D","E","F"], answers:["1","3","4","5","3","2"] },
+      { num:10, text:"During the full moon phase, how much of the Moon's surface is being illuminated by sunlight?",
+        options:["None of the Moon's surface","Half of the Moon's surface","42% of the Moon's surface","All of the Moon's surface","A quarter of the Moon's surface"], answer:1 },
+      { num:11, text:"During the first quarter moon phase, how much of the Moon's surface is being illuminated by sunlight?",
+        options:["More than 1/2","1/2","Less than 1/2"], answer:1 }
+    ]
+  },
+
+  // ---------- QUIZ 10 ----------
+  {
+    id: 10,
+    title: "Quiz #10",
+    name: "Seasons & Solar System Formation",
+    questions: [
+      { section:"Part A — Multiple Choice", num:1,
+        text:"Which planet has four large moons that are visible from Earth with just binoculars?",
+        options:["Venus","Neptune","Mars","Earth","Uranus","Saturn","Mercury","Jupiter"], answer:7 },
+      { num:2, text:"Which of the following would NOT be a danger of living on Mars?",
+        options:["There isn't enough protection from radiation from the sun and space.","You would float away into space if you jumped too high.","It's freezing cold most of the time.","The atmosphere is not breathable."], answer:1 },
+      { num:3, text:"What major gases are mostly found in the gas giant planets?",
+        options:["Hydrogen and Helium","Carbon Dioxide","Hydrogen","Hydrogen, Helium and Carbon Dioxide","Helium"], answer:0 },
+      { num:4, text:"A single spacecraft will observe a list of planets. For which of the following must this spacecraft travel through the asteroid belt to arrive at their location(s)?",
+        options:["Venus, Mercury, Mars","Venus, Mars","Mars","Saturn","Mercury"], answer:3 },
+
+      { section:"Part B — The Seasons", num:5,
+        text:"A flashlight projects identical beams onto pieces of paper (A–D) inclined at various angles. Rank the size of the illuminated area, largest to smallest. [1=Largest...4=Smallest]",
+        image:"quiz_images/Quiz_10/Q05-06_flashlight_papers.png",
+        type:"fill", labels:["A","B","C","D"], answers:["3","2","4","1"] },
+      { num:6, text:"Using the same flashlight figure: rank the temperature of each illuminated area, hottest to coolest. [1=Hottest...4=Coolest]",
+        image:"quiz_images/Quiz_10/Q05-06_flashlight_papers.png",
+        type:"fill", labels:["A","B","C","D"], answers:["2","3","1","4"] },
+      { num:7, text:"Parallel beams of sunlight pass through equal-sized cutouts and strike a spherical globe at locations A–D (A and C are at the same latitude). Rank the temperature of each illuminated area, hottest to coolest. If any are equal, give them the same number (do not skip numbers). [1=Hottest...4=Coolest]",
+        image:"quiz_images/Quiz_10/Q07_globe_beams.png",
+        type:"fill", labels:["A","B","C","D"], answers:["2","1","2","3"] },
+      { num:8, text:"The drawing shows three regions of Earth at two times of year, 6 months apart, with locations 1–6. Which location(s) correspond with Summer in the Northern Hemisphere?",
+        image:"quiz_images/Quiz_10/Q08-09_seasons_globes.png",
+        type:"multi", options:["1","2","3","4","5","6"], correct:[3] },
+      { num:9, text:"Using the same drawing: which location(s) correspond with Winter in the Southern Hemisphere?",
+        image:"quiz_images/Quiz_10/Q08-09_seasons_globes.png",
+        type:"multi", options:["1","2","3","4","5","6"], correct:[5] },
+      { num:10, text:"During which season is the Sun highest in the sky at noon?",
+        options:["Summer","Spring","Fall","Winter"], answer:0 },
+      { num:11, text:"During which season is the number of daylight hours the greatest?",
+        options:["Winter","Spring","Summer","Fall"], answer:2 },
+      { num:12, text:"If Earth were tilted 90° (rotation axis right on the orbital plane), which location would be warmer in Summer:",
+        options:["Florida","Arctic Circle"], answer:1 },
+
+      { section:"Part C — Temperature & Formation", num:13,
+        text:"The graph shows the temperature at different distances from the Sun when the planets were forming; the table gives reference temperatures (water freezes at 273 K, boils at 373 K). Select which planets formed at temperatures HOTTER than the boiling point of water.",
+        image:"quiz_images/Quiz_10/Q13-17_graph_table.png",
+        type:"multi", options:["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"], correct:[0,1,2,3] },
+      { num:14, text:"Using the same graph and table: which planets formed at temperatures COOLER than the freezing point of water?",
+        image:"quiz_images/Quiz_10/Q13-17_graph_table.png",
+        type:"multi", options:["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"], correct:[4,5,6,7] },
+      { num:15, text:"Why does it make sense that the gas giants formed farther out than the terrestrial planets?",
+        options:["They formed from solid rock with just a little bit of gas overtop, so they had to form at high temperatures.","I dunno?","They probably formed closer in and then migrated outwards.","They formed from cores of ice and rock, so there needed to be ice available, and ice is only that far out."], answer:3 },
+      { num:16, text:"It is likely that a large, Jovian planet would form at the location of Mercury.",
+        options:["True","False"], answer:1 },
+      { num:17, text:"Astronomers have found massive gas giants orbiting other stars closer than 0.7 AU. Why don't astronomers believe these gas giants originally formed at these locations?",
+        options:["The temperature in the early solar system was too high at these distances.","Planetesimals could not have collided and clumped together to form protoplanets this close to a star.","Their orbital periods are too long for them to be located that close to their companion stars.","The planets' gravity would have been too large to form that close to the star.","There were too many terrestrial planets already formed at these distances – too crowded."], answer:0 }
+    ]
+  },
+
+  // ---------- QUIZ 11 ----------
+  {
+    id: 11,
+    title: "Quiz #11",
+    name: "Newton's Gravity & Exoplanet Transits",
+    questions: [
+      { section:"Part A — Multiple Choice", num:1,
+        text:"Which of the following is NOT a way to detect the existence of an extrasolar planet?",
+        options:['We look for the position of a distant star to "wobble".',"We look for a regular switch between red shifted and blue shifted light from a distant star.","We look for evidence of supernova explosions from a stellar neighbourhood.","We look for the light of a distant star to dim regularly.","All of the above methods allow us to detect the existence of an extrasolar planet."], answer:2 },
+      { num:2, text:"What would happen to Earth if the Sun's gravity were suddenly 'turned off'?",
+        options:["Nothing, Earth would orbit the same way it does now.","Earth would move off in a straight line into deep space.","Earth would orbit the Sun slower.","Earth would orbit the Sun faster."], answer:1 },
+      { num:3, text:"Consider a planet orbiting the Sun. If the mass of the planet doubled, but the planet followed the same orbit, then the force of gravity between the planet and the Sun would",
+        options:["become half as much","stay the same","become one quarter as much","double","quadruple"], answer:3 },
+      { num:4, text:"If the mass of the planet doubled AND the planet's distance from the Sun doubled, then the force of gravity between the planet and the Sun would",
+        options:["quadruple","become 8 times as great","stay the same","double","become half as great"], answer:4 },
+      { num:5, text:"If the mass of the planet doubled, AND the planet's distance from the Sun doubled, AND the mass of the Sun doubled, then the force of gravity between the planet and the Sun would",
+        options:["become 8 times as great","double","quadruple","stay the same","become 16 times as great"], answer:3 },
+
+      { section:"Part B — The Transit Method", num:6,
+        text:"The figures show the orbits of three exoplanets around their stars (Earth is directly below each figure). For each, could astronomers on Earth detect the exoplanet using the transit method? Answer yes or no.",
+        image:"quiz_images/Quiz_11/Q06_orbits_XYZ.png",
+        type:"fill", labels:["Figure X","Figure Y","Figure Z"], answers:["no","yes","yes"] },
+      { num:7, text:"The graph shows how the brightness we detect from a star changes over time as an exoplanet orbits it. Which locations correspond to the times when the exoplanet is completely IN FRONT of the star?",
+        image:"quiz_images/Quiz_11/Q07-10_brightness_graph.png",
+        type:"multi", options:["A","B","C","D","E","F","G"], correct:[1,3,5] },
+      { num:8, text:"Referring to the same graph: which locations correspond to the times when the exoplanet is NOT in front of the star at all?",
+        image:"quiz_images/Quiz_11/Q07-10_brightness_graph.png",
+        type:"multi", options:["A","B","C","D","E","F","G"], correct:[0,2,4,6] },
+      { num:9, text:"Referring to the graph: what is the exoplanet doing when the detected light begins to increase from the least amount to the greatest amount of light?",
+        image:"quiz_images/Quiz_11/Q07-10_brightness_graph.png",
+        options:["The exoplanet is moving out from in front of the star (it is about to stop blocking any starlight).","The exoplanet is moving to come directly between us and the star."], answer:0 },
+      { num:10, text:"Why are the bottoms of the dips in the graph a horizontal line rather than a single point?",
+        options:["A horizontal line shows that the planet takes some time to orbit in front of the star.","A horizontal line shows the planet is behind the star during this interval.","A horizontal line shows the planet moving in a straight line in front of the star.","A horizontal line shows the planet stopped for a while when it is in front of the star."], answer:0 },
+
+      { section:"Part B — Matching (Systems & Graphs)", num:11,
+        text:"Four exoplanet systems (left) match four brightness-vs-time graphs (right). All stars are identical, but the exoplanets vary in size and orbital distance (farther = longer orbit; bigger = deeper dip). Match each system with its graph (A–D).",
+        image:"quiz_images/Quiz_11/Q11_matching_systems_graphs.png",
+        type:"fill", labels:["System 1","System 2","System 3","System 4"], answers:["C","A","B","D"] },
+
+      { section:"Part B — Comparing Graphs", num:12,
+        text:"Graphs 1 and 2 show two identical stars. Star 1 has a small exoplanet (Graph 1); Star 2 has a large exoplanet (Graph 2). Both exoplanets are the same distance from their stars. Assuming Graph 1 is correct, are the SIDES of the dips in Graph 2 correct or incorrect?",
+        image:"quiz_images/Quiz_11/Q12-14_graph1_graph2.png",
+        options:["They're incorrect because they're the wrong shape.","They're correct because they're all vertical lines."], answer:0 },
+      { num:13, text:"Why might Graph 2 have a gap, with no data there?",
+        image:"quiz_images/Quiz_11/Q12-14_graph1_graph2.png",
+        options:["The star may have temporarily disappeared during that time.","The planet may have temporarily disappeared during that time.","The telescope might have not gotten data during that time."], answer:2 },
+      { num:14, text:"Why might Graph 2 have deeper dips than Graph 1?",
+        image:"quiz_images/Quiz_11/Q12-14_graph1_graph2.png",
+        options:["Because the planet featured in the second data set is bigger.","Because the star featured in the second data set is bigger.","Because the planet featured in the second data set has a wider orbit."], answer:0 },
+
+      { section:"Part C — Newton's Gravity", num:15,
+        text:"The figure shows several objects (A–D) of different masses on the surface of the Earth. Rank (greatest to least) the strength of the gravitational force exerted by Earth on each object. [1=Greatest...4=Least]",
+        image:"quiz_images/Quiz_11/Q15_objects_ABCD.png",
+        type:"fill", labels:["A","B","C","D"], answers:["4","2","3","1"] },
+      { num:16, text:"The figures (A–D) each show two rocky asteroids with masses (m) separated by a distance (d), in arbitrary units. Rank (greatest to least) the strength of the gravitational force between each pair. [1=Greatest...4=Least]",
+        image:"quiz_images/Quiz_11/Q16_asteroid_pairs.png",
+        type:"fill", labels:["A","B","C","D"], answers:["3","1","2","4"] },
+      { num:17, text:"An apple hangs on a tree on the Earth. Which of the following statements is correct?",
+        options:["The gravitational force on the Earth is greater than the gravitational force on the apple because the Earth is more massive.","The gravitational force on the apple is less than the gravitational force on the Earth because the tree is supporting the apple.","The gravitational forces on the apple from the Earth, and on Earth from the apple, are equal.","The gravitational forces on the apple and the Earth are zero because they are not touching each other.","The gravitational force on the apple is greater than the gravitational force on the Earth because the Earth is more massive."], answer:2 }
+    ]
   }
 ];
 
@@ -875,6 +1140,25 @@ function renderQuestions(){
           ${feedback}
         </div>`;
       }).join('');
+    } else if(q.type === 'multi'){
+      const sel = Array.isArray(saved) ? saved : [];
+      html += `<div class="multi-hint">SELECT ALL THAT APPLY</div>`;
+      html += `<div class="options">`;
+      html += q.options.map((opt, i) => {
+        let cls = '';
+        if(sel.includes(i)) cls = 'selected';
+        if(submitted){
+          if(q.correct.includes(i)) cls = 'show-correct';
+          else if(sel.includes(i)) cls = 'show-wrong';
+        }
+        const lockCls = submitted ? 'locked' : '';
+        return `<div class="option multi ${cls} ${lockCls}"
+          ${submitted?'':`onclick="onMultiClick(${qIdx}, ${i})"`}>
+          <div class="radio"></div>
+          <span>${escapeHTML(opt)}</span>
+        </div>`;
+      }).join('');
+      html += `</div>`;
     } else {
       html += `<div class="options">`;
       html += q.options.map((opt, i) => {
@@ -924,6 +1208,12 @@ function isCorrect(q, saved){
       if(userVal !== correctVal) return false;
     }
     return true;
+  } else if(q.type === 'multi'){
+    if(!Array.isArray(saved)) return false;
+    const a = [...saved].sort((x,y)=>x-y);
+    const b = [...q.correct].sort((x,y)=>x-y);
+    if(a.length !== b.length) return false;
+    return a.every((v,i)=>v===b[i]);
   } else {
     return saved === q.answer;
   }
@@ -934,6 +1224,18 @@ function onOptionClick(qIdx, optIdx){
   const qs = getQuizState(currentQuiz);
   if(qs.submitted) return;
   qs.answers[qIdx] = optIdx;
+  saveState();
+  renderQuestions();
+  renderStatusBar();
+}
+
+function onMultiClick(qIdx, optIdx){
+  const qs = getQuizState(currentQuiz);
+  if(qs.submitted) return;
+  let arr = Array.isArray(qs.answers[qIdx]) ? qs.answers[qIdx].slice() : [];
+  const pos = arr.indexOf(optIdx);
+  if(pos >= 0) arr.splice(pos, 1); else arr.push(optIdx);
+  qs.answers[qIdx] = arr;
   saveState();
   renderQuestions();
   renderStatusBar();

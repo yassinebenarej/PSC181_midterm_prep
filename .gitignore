@@ -1,0 +1,4 @@
+.DS_Store
+quiz_images/_old_manual/
+# source quiz PDFs (results pages) are kept locally, not in the repo
+*.pdf
