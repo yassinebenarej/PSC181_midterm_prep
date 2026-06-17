@@ -58,8 +58,8 @@ h1{
 }
 
 .tabs{
-  display:flex;
-  flex-wrap:wrap;
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
   gap:6px;
   margin-bottom:24px;
   padding:6px;
@@ -68,8 +68,7 @@ h1{
   border-radius:10px;
 }
 .tab{
-  flex:1;
-  min-width:90px;
+  min-width:0;
   padding:10px 8px;
   background:transparent;
   border:none;
@@ -350,7 +349,7 @@ h1{
 
 @media(max-width:600px){
   body{padding:12px}
-  .tab{min-width:60px;font-size:.75rem;padding:8px 6px}
+  .tab{min-width:0;font-size:.72rem;padding:8px 4px}
   .fill-row label{min-width:100px}
 }
 </style>
