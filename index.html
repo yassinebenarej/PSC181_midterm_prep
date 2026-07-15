@@ -1138,7 +1138,7 @@ const COURSES = [
 const STORAGE_KEY = 'astronomy_quizzes_state_v2';
 const OLD_STORAGE_KEY = 'astronomy_quizzes_state_v1';
 let state = loadState();
-let currentCourse = state.currentCourse || 0;
+let currentCourse = state.currentCourse ?? 1;
 let currentQuiz = getCourseState(currentCourse).currentQuiz || 0;
 
 function loadState(){
@@ -1151,13 +1151,13 @@ function loadState(){
     const old = localStorage.getItem(OLD_STORAGE_KEY);
     if(old){
       const o = JSON.parse(old);
-      return { currentCourse: 0, courses: {
+      return { currentCourse: 1, courses: {
         0: { currentQuiz: o.currentQuiz || 0, quizzes: o.quizzes || {} },
         1: { currentQuiz: 0, quizzes: {} }
       }};
     }
   } catch(e){}
-  return { currentCourse: 0, courses: {} };
+  return { currentCourse: 1, courses: {} };
 }
 
 function saveState(){
