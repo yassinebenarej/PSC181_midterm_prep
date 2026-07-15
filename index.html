@@ -57,6 +57,32 @@ h1{
   margin-right:auto;
 }
 
+.course-toggle{
+  display:flex;
+  gap:6px;
+  margin-bottom:12px;
+  padding:6px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+}
+.course-btn{
+  flex:1;
+  padding:12px 8px;
+  background:transparent;
+  border:none;
+  color:var(--text-dim);
+  font-family:'Space Mono',monospace;
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:1px;
+  cursor:pointer;
+  border-radius:6px;
+  transition:all .2s;
+}
+.course-btn:hover{color:var(--text);background:var(--card-hover)}
+.course-btn.active{background:#fff;color:#000}
+
 .tabs{
   display:grid;
   grid-template-columns:repeat(6, 1fr);
@@ -359,7 +385,7 @@ h1{
 <div class="container">
   <header>
     <h1>Astronomy Quizzes</h1>
-    <div class="course">CPCS181 BC0 · Introduction to Astronomy · P2026</div>
+    <div class="course" id="courseLabel">CPCS181 BC0 · Introduction to Astronomy · P2026</div>
     <div class="disclaimer">
       DISCLAIMER: All content on this page is the intellectual property of
       Professor Dave Kirsh and Toronto Metropolitan University. The following
@@ -367,6 +393,8 @@ h1{
       Please don't sue me, I don't want any trouble 🙏🏿🫣.
     </div>
   </header>
+
+  <div class="course-toggle" id="courseToggle"></div>
 
   <div class="tabs" id="tabs"></div>
 
@@ -386,7 +414,8 @@ h1{
 
 <script>
 // ============ QUIZ DATA ============
-const QUIZZES = [
+// ---- PCS181 · Introduction to Astronomy ----
+const PCS181_QUIZZES = [
   // ---------- QUIZ 1 ----------
   {
     id: 1,
@@ -1009,42 +1038,167 @@ const QUIZZES = [
   }
 ];
 
+// ---- PCS581 · Advanced Topics in Astronomy ----
+const PCS581_QUIZZES = [
+  // ---------- QUIZ 1 ----------
+  {
+    id: 1,
+    title: "Quiz #1",
+    name: "The Big Bang and the Universe(s)",
+    questions: [
+      { num:1, text:"How are distant galaxies moving, from our perspective, and why?",
+        options:["They're motionless, due to the cosmological constant","They're approaching us, due to gravity","They're moving away from us, due to the Big Bang","They're collapsing, due to Dark Energy","They're moving in random directions, due to gravity"], answer:2 },
+      { num:2, text:"During what era of the universe did Inflation occur?",
+        options:["The Era of Atoms","The Era of Galaxies","The Era of Nucleosynthesis","The Grand Unified Theory Era","The Particle Era"], answer:3 },
+      { num:3, text:"What released the Cosmic Microwave Background radiation?",
+        options:["The universe became transparent when it cooled enough for atoms to form","Nucleosynthesis fusion produced microwave radiation during the Era of Atoms","We don't like to talk about it, it's rude","The density of the universe dropped enough for light to penetrate it, during the Particle era","The first stars began to glow, releasing CMB light"], answer:0 },
+      { num:4, text:"If the universe had slightly more density than the Critical Density, it would:",
+        options:["collapse","stay precisely balanced","accelerate its expansion","be really dumb","expand forever"], answer:0 },
+      { num:5, text:"Dark Matter and Dark energy are the same in that",
+        options:["they are produced by particles","they both want the universe to expand faster","they make up the exact same percentage composition of our universe","we don't know what either of them are","they caused the expansion of the universe"], answer:3 },
+      { num:6, text:"How does MOND attempt to do away with the need for Dark Matter?",
+        options:["MOND describes how gravity from Dark Matter would differ from normal matter","It doesn't, MOND is a proposed type of Dark Matter","If gravity isn't acting as expected, maybe gravity is just not what we think it is","MOND tells us that Dark Matter doesn't need to exist in galaxies due to the number of black holes we can't see","MOND is just grumpy, as the start of Monday usually is"], answer:2 },
+      { num:7, text:"Why would we expect the CMB to be extremely different when viewed in two opposite directions (when not accounting for inflation)?",
+        options:['It shouldn\'t, this was Einstein\'s "greatest blunder"','Because we don\'t think anyone "fine-tuned" the universe',"Quantum Mechanics tells us that vastly separate areas should be different","Those vastly separate areas of the universe should not have had time to see each other or reach any sort of similar state","Those two opposite directions point to two different bubble universes"], answer:3 },
+      { num:8, text:"A negatively shaped universe is",
+        options:["shaped like a sphere, and due to recollapse","extremely dense with high levels of gravity, and will recollapse","extremely low density, with very little gravity, and light can circle around it back to where it started","perfectly flat in curvature, due to Dark Energy","shaped like a saddle, and should expand forever"], answer:4 },
+      { num:9, text:"How do bubble universes help solve the Fine-Tuning Problem?",
+        options:["If there are many universes, very few of them should be fit for life","If there are many universes, it's no surprise that we're in one that's good for life","Bubbles indicate inflation should have happened, leading to life","As bubbles expand they will naturally tune themselves perfectly for life","Adjoining bubbles can leak properties into each other to reach equilibrium"], answer:1 },
+      { num:10, text:"If someone pulled you into the fourth dimension, then (going off the flatland analogy) you would see...",
+        options:["some real crazy s--t, man (do not select this answer, come on)","that the universe is made of vibrating strings","inside closed rooms, and have a sort of x-ray vision","nothing but blackness","the 3D universe as a simple 2D line"], answer:2 }
+    ]
+  },
+
+  // ---------- QUIZ 2 ----------
+  {
+    id: 2,
+    title: "Quiz #2",
+    name: "Multiverses and Stellar Deaths",
+    questions: [
+      { num:1, text:"When firing electrons through two slits in a barrier, what pattern will they create on a screen on the far side of the barrier?",
+        options:["a single light band surrounded by darkness","four light bands, with darkness otherwise","a happy face","two light bands, with darkness otherwise","alternating light and dark bands"], answer:4 },
+      { num:2, text:"Which Multiverse would feature a second version of you, so similar that you could not possibly tell the difference from within each universe?",
+        options:["Quantum Multiverse","Bubble Multiverse","Multiverse Multiverse","Holographic Multiverse","Simulated Multiverse"], answer:3 },
+      { num:3, text:"Which number is false?",
+        options:["Around 90-95% of stars we can observe are in the main sequence stage","The sun will die when it reaches about 10 billion years of age","The sun is about 4.5 billion years old","A helium nucleus includes two protons and two neutrons","High-mass stars are anything larger than twice the mass of the sun"], answer:4 },
+      { num:4, text:"What effect might draw us in to the expanding Sun during its Red Giant phase?",
+        options:["As the Sun loses mass due to powerful solar winds, our orbit will decay and spiral inwards","Tidal forces will cause a bulge to be drawn out from the surface of the Sun, by the Earth's gravity, and the gravity of that bulge will be the problem","The increased gravity of the growing Sun will pull us towards it","Solar winds striking the Earth will cause it to lose angular momentum and spiral inwards","Pure spite"], answer:1 },
+      { num:5, text:"Where in the HR Diagram would you find the lowest-mass living star?",
+        options:["top left","in the middle","top right","bottom right","bottom left"], answer:3 },
+      { num:6, text:"What causes white dwarfs to have an upper limit of mass?",
+        options:["nothing can go faster than the speed of light","electrons are attracted to protons","stars don't get any bigger than that","atoms can only get so hot and pressurized before the fuse","electrons weight less than protons"], answer:0 },
+      { num:7, text:"What is a Lagrange point?",
+        options:["It is the balance point of equal gravitational pull from two different objects in a rotating reference frame","It's when a French person points at you","It is the location exactly half way between two stars in a binary or triple system","It is the spot where a mass transfer stream hits an accretion disk","It is the boundary region where a star's gravity is stronger than its neighbour's gravity"], answer:0 },
+      { num:8, text:"Why are white dwarf supernovae particularly useful?",
+        options:["Since they're incredibly bright, we can use them to locate galaxies","Since we know what made them, we can identify stellar populations","Since they produce heavy elements, we can use them to figure out the composition of the universe","Since we know how bright they are, we can use them to measure distances","Since they're produced by small objects, we can use them to figure out sizes of things"], answer:3 },
+      { num:9, text:"Why is there an upper limit to how massive stars can be?",
+        options:["Stars put out exponentially more energy with increasing mass, so beyond a certain point their gravity can't hold them together against that pressure","Because I said so","Stars form from collapsing nebula gas, and there are no nebula large enough to produce stars beyond a certain mass","Stars have higher temperatures with increasing mass, so beyond a certain point they become too hot to fuse hydrogen into helium","Stars grow while they age, but the universe is only so old, so there's a limit to how much a star can have grown by now"], answer:0 },
+      { num:10, text:"In what situation could neutrinos be dangerous?",
+        options:["Supernovae accelerate them to such high energies that even a few impacts can be damaging","Neutrinos could never be dangerous","Neutrinos are always dangerous","Nuclear fusion produces radioactive neutrinos, which is one reason why it nuclear reactors are dangerous","Supernovae produce so many of them that they are enough to be dangerous"], answer:4 }
+    ]
+  },
+
+  // ---------- QUIZ 3 ----------
+  {
+    id: 3,
+    title: "Quiz #3",
+    name: "Neutron Stars and Black Holes",
+    questions: [
+      { num:1, text:"Which star that we are observing will appear most purely hydrogen and helium?",
+        options:["A star that is currently being born","A very nearby star","A young star that is low mass","A very old star, more than ten billion years old","A young star that is very massive"], answer:3 },
+      { num:2, text:"Why do we not often get to see supernovae in the Milky Way?",
+        options:["Because they would kill us, and we are being protected","Statistically speaking they are so rare that humanity might never get to see one in our own galaxy","There is too much gas and dust obscuring our view through the disk","We do see them regularly, but they're dim due to being so far","That would be much too close"], answer:2 },
+      { num:3, text:"If the north pole of a pulsar was perfectly aligned with its north magnetic pole, and pointing directly at us, then which of the following would be true?",
+        options:["It would not be a pulsar, since it would not be pulsing","It would be called a dead-eye pulsar","The pulsation period would be detected in the form of fast blinking","It would not be rotating, so it would not be pulsing","We would not receive any of its beamed radiation"], answer:0 },
+      { num:4, text:"Which of the following is correct?",
+        options:["Hydrogen fuses into helium at 100 million K","Helium fuses into hydrogen at 10 million K","Helium fuses into carbon at 100 million K","Hydrogen fuses into carbon at 10 million K","Helium fuses into carbon at 600 million K"], answer:2 },
+      { num:5, text:"Which of the following would have the lowest escape velocity?",
+        options:["If you were starting from the surface of the Moon","If you were starting from a space station orbiting the Earth at 400 km altitude","If you were starting from the top of Mount Everest","If you were starting from the surface of the Earth","If you were starting from a space station orbiting the Moon at 400 km altitude"], answer:4 },
+      { num:6, text:"What would it take for a black hole to evaporate?",
+        options:["If absolutely nothing was falling into, and it was very small","It would have to be made of antimatter","If it were surrounded by a cloud of antimatter","If it was possessed by the spirit of Stephen Hawking","If it existed within a billion years after the big bang"], answer:0 },
+      { num:7, text:"Mass distorts spacetime",
+        options:["in two dimensions perpendicular to our perspective","in one dimension along its own reference line","in three dimensions, all around it","in two dimensions, on a flat surface","in one dimension, along the direction of its motion"], answer:2 },
+      { num:8, text:"If you fall into a black hole, and discover it is a wormhole when you come out another side, which of the following is false about the exit?",
+        options:["it could be extremely far away in spacetime","it could be in another universe","it could be a black hole","it could be a white hole","it could be in the past"], answer:2 },
+      { num:9, text:"Which of the following could happen to a positively charged black hole?",
+        options:["it would expand back out into a neutron star","it would spin faster while collapsing","it would explode as a supernova","it would only consume positive charges, becoming more charged","it would consume only negative charges, eventually neutralizing"], answer:4 },
+      { num:10, text:"In the picture of M87's black hole, taken by the Event Horizon telescope, what is the bright area that surrounds the central darkness?",
+        options:["Hawking radiation","gravitationall lensed light from background stars and nebulae","the shadow of the black hole","the firewall around the event horizon","a distorted view of the black hole's accretion disk"], answer:4 }
+    ]
+  }
+];
+
+// ---- COURSES ----
+const COURSES = [
+  { id:'PCS181', label:'PCS181', courseLine:'CPCS181 BC0 · Introduction to Astronomy · P2026', quizzes: PCS181_QUIZZES },
+  { id:'PCS581', label:'PCS581', courseLine:'PCS581 · Advanced Topics in Astronomy · P2026', quizzes: PCS581_QUIZZES }
+];
+
 // ============ STATE ============
-const STORAGE_KEY = 'astronomy_quizzes_state_v1';
+const STORAGE_KEY = 'astronomy_quizzes_state_v2';
+const OLD_STORAGE_KEY = 'astronomy_quizzes_state_v1';
 let state = loadState();
-let currentQuiz = state.currentQuiz || 0;
+let currentCourse = state.currentCourse || 0;
+let currentQuiz = getCourseState(currentCourse).currentQuiz || 0;
 
 function loadState(){
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw) return JSON.parse(raw);
   } catch(e){}
-  // initialize
-  const s = { currentQuiz: 0, quizzes: {} };
-  QUIZZES.forEach((q,i) => {
-    s.quizzes[i] = { answers: {}, submitted: false, score: null };
-  });
-  return s;
+  // migrate from v1 (single-course PCS181 state)
+  try {
+    const old = localStorage.getItem(OLD_STORAGE_KEY);
+    if(old){
+      const o = JSON.parse(old);
+      return { currentCourse: 0, courses: {
+        0: { currentQuiz: o.currentQuiz || 0, quizzes: o.quizzes || {} },
+        1: { currentQuiz: 0, quizzes: {} }
+      }};
+    }
+  } catch(e){}
+  return { currentCourse: 0, courses: {} };
 }
 
 function saveState(){
   try {
-    state.currentQuiz = currentQuiz;
+    state.currentCourse = currentCourse;
+    getCourseState(currentCourse).currentQuiz = currentQuiz;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch(e){
     console.warn('Could not save state', e);
   }
 }
 
+function getCourseState(cIdx){
+  if(!state.courses) state.courses = {};
+  if(!state.courses[cIdx]) state.courses[cIdx] = { currentQuiz: 0, quizzes: {} };
+  return state.courses[cIdx];
+}
+
+function currentQuizzes(){
+  return COURSES[currentCourse].quizzes;
+}
+
 function getQuizState(idx){
-  if(!state.quizzes[idx]) state.quizzes[idx] = { answers:{}, submitted:false, score:null };
-  return state.quizzes[idx];
+  const cs = getCourseState(currentCourse);
+  if(!cs.quizzes[idx]) cs.quizzes[idx] = { answers:{}, submitted:false, score:null };
+  return cs.quizzes[idx];
 }
 
 // ============ RENDER ============
+function renderCourseToggle(){
+  const toggle = document.getElementById('courseToggle');
+  toggle.innerHTML = COURSES.map((c,i) =>
+    `<button class="course-btn ${i===currentCourse?'active':''}" onclick="switchCourse(${i})">${c.label}</button>`
+  ).join('');
+  document.getElementById('courseLabel').textContent = COURSES[currentCourse].courseLine;
+}
+
 function renderTabs(){
   const tabs = document.getElementById('tabs');
-  tabs.innerHTML = QUIZZES.map((q,i) => {
+  tabs.style.gridTemplateColumns = `repeat(${Math.min(6, currentQuizzes().length)}, 1fr)`;
+  tabs.innerHTML = currentQuizzes().map((q,i) => {
     const qs = getQuizState(i);
     const check = qs.submitted ? '<span class="check">✓</span>' : '';
     return `<button class="tab ${i===currentQuiz?'active':''}" onclick="switchQuiz(${i})">${q.title}${check}</button>`;
@@ -1061,7 +1215,7 @@ function renderScoreBanner(){
     return;
   }
   banner.classList.remove('hidden');
-  const total = QUIZZES[currentQuiz].questions.length;
+  const total = currentQuizzes()[currentQuiz].questions.length;
   const pct = Math.round((qs.score/total)*100);
   document.getElementById('scoreBig').textContent = `${qs.score} / ${total}`;
   document.getElementById('scorePct').textContent = `${pct}%`;
@@ -1074,7 +1228,7 @@ function renderScoreBanner(){
 }
 
 function renderQuestions(){
-  const quiz = QUIZZES[currentQuiz];
+  const quiz = currentQuizzes()[currentQuiz];
   const qs = getQuizState(currentQuiz);
   const container = document.getElementById('questions');
   let html = '';
@@ -1244,12 +1398,22 @@ function onFillInput(qIdx, fillIdx, val){
   const qs = getQuizState(currentQuiz);
   if(qs.submitted) return;
   if(!qs.answers[qIdx] || !Array.isArray(qs.answers[qIdx])){
-    const q = QUIZZES[currentQuiz].questions[qIdx];
+    const q = currentQuizzes()[currentQuiz].questions[qIdx];
     qs.answers[qIdx] = new Array(q.labels.length).fill('');
   }
   qs.answers[qIdx][fillIdx] = val;
   saveState();
   renderStatusBar();
+}
+
+function switchCourse(idx){
+  if(idx === currentCourse) return;
+  getCourseState(currentCourse).currentQuiz = currentQuiz;
+  currentCourse = idx;
+  currentQuiz = getCourseState(currentCourse).currentQuiz || 0;
+  saveState();
+  renderAll();
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 function switchQuiz(idx){
@@ -1260,7 +1424,7 @@ function switchQuiz(idx){
 }
 
 function submitCurrentQuiz(){
-  const quiz = QUIZZES[currentQuiz];
+  const quiz = currentQuizzes()[currentQuiz];
   const qs = getQuizState(currentQuiz);
   let score = 0;
   quiz.questions.forEach((q, qIdx) => {
@@ -1275,12 +1439,13 @@ function submitCurrentQuiz(){
 
 function resetCurrentQuiz(){
   if(!confirm('Reset this quiz? All your answers will be cleared.')) return;
-  state.quizzes[currentQuiz] = { answers:{}, submitted:false, score:null };
+  getCourseState(currentCourse).quizzes[currentQuiz] = { answers:{}, submitted:false, score:null };
   saveState();
   renderAll();
 }
 
 function renderAll(){
+  renderCourseToggle();
   renderTabs();
   renderStatusBar();
   renderScoreBanner();
